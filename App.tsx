@@ -13,7 +13,9 @@ import { Text } from './src/components/Text'
 export function App() {
   return (
     <SafeAreaView>
-      <Text preset="headingLarge">Teste</Text>
+      <Text italic preset="headingLarge">
+        Coffstack
+      </Text>
     </SafeAreaView>
   )
 }
