@@ -8,14 +8,18 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native'
 
+import { ThemeProvider } from '@shopify/restyle'
 import { Text } from './src/components/Text'
+import { theme } from './src/theme/theme'
 
 export function App() {
   return (
-    <SafeAreaView>
-      <Text italic preset="headingLarge">
-        Coffstack
-      </Text>
-    </SafeAreaView>
+    <ThemeProvider theme={theme}>
+      <SafeAreaView>
+        <Text italic preset="headingLarge">
+          Coffstack
+        </Text>
+      </SafeAreaView>
+    </ThemeProvider>
   )
 }
