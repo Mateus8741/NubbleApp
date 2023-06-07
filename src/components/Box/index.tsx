@@ -1,0 +1,27 @@
+/* eslint-disable prettier/prettier */
+import {
+  BackgroundColorProps,
+  BorderProps,
+  LayoutProps,
+  SpacingProps,
+  SpacingShorthandProps,
+  backgroundColor,
+  border,
+  createBox,
+  createRestyleComponent,
+  layout,
+  spacing,
+  spacingShorthand,
+} from "@shopify/restyle";
+import { ComponentProps } from "react";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import { Theme } from "../../theme/theme";
+
+export const Box = createBox<Theme>();
+export type BoxProps = ComponentProps<typeof Box>
+
+export type TouchableOpacityBoxProps = BackgroundColorProps<Theme> & LayoutProps<Theme> & BorderProps<Theme> & SpacingProps<Theme> & SpacingShorthandProps<Theme> & TouchableOpacityProps;
+export const TouchableOpacityBox = createRestyleComponent<
+TouchableOpacityBoxProps,
+  Theme
+>([backgroundColor, spacing, layout, border, spacingShorthand], TouchableOpacity);

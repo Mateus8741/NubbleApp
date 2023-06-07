@@ -16,7 +16,7 @@ export function App() {
   return (
     <ThemeProvider theme={theme}>
       <SafeAreaView>
-        <Text italic preset="headingLarge">
+        <Text italic preset="headingLarge" color="error">
           Coffstack
         </Text>
       </SafeAreaView>

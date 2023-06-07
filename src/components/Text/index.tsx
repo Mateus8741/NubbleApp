@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
-import {
-  Text as RNText,
-  TextProps as RNTextProps,
-  TextStyle,
-} from 'react-native'
+import { ComponentProps } from 'react'
+import { TextStyle } from 'react-native'
 
-// import {Container} from './styles';
+import { createText } from '@shopify/restyle'
+import { Theme } from '../../theme/theme'
 
-interface TextProps extends RNTextProps {
+const SRText = createText<Theme>()
+
+type SRTextProps = ComponentProps<typeof SRText>
+
+interface TextProps extends SRTextProps {
   // eslint-disable-next-line no-use-before-define
   preset?: TextVariants
   bold?: boolean
@@ -29,9 +31,13 @@ export function Text({
   )
 
   return (
-    <RNText style={[style, rest.style, { fontFamily }]} {...rest}>
+    <SRText
+      color="backgroundContrast"
+      style={[style, rest.style, { fontFamily }]}
+      {...rest}
+    >
       {children}
-    </RNText>
+    </SRText>
   )
 }
 
