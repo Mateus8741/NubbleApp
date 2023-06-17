@@ -37,7 +37,7 @@ export interface IconBase {
 
 interface Props {
   name: IconNames
-  color: ThemeColors
+  color?: ThemeColors
   size?: number
   onPress?: () => void
 }

@@ -1,14 +1,18 @@
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
 import React from 'react'
 import { Screen } from '../../../Screen/Screen'
 import { Button } from '../../../components/Button/Button'
 import { PasswordInput } from '../../../components/PasswordInput/PasswordInput'
 import { Text } from '../../../components/Text/Text'
 import { TextInput } from '../../../components/TextInput/TextInput'
+import { RootStackParamList } from '../../../routes/Routes'
 
-export function SignUpScreen() {
+type ScreenProps = NativeStackScreenProps<RootStackParamList, 'SignUpScreen'>
+
+export function SignUpScreen({ navigation }: ScreenProps) {
   // eslint-disable-next-line no-unused-vars
   function submitForm() {
-    // TODO: implement
+    navigation.navigate('SuccessScreen')
   }
 
   return (
@@ -41,7 +45,7 @@ export function SignUpScreen() {
         placeholder="Digite sua Senha"
       />
 
-      <Button title="Criar uma conta" />
+      <Button title="Criar uma conta" onPress={submitForm} />
     </Screen>
   )
 }
