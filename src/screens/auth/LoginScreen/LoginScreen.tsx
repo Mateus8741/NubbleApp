@@ -1,28 +1,27 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { Controller, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { Screen } from '../../../Screen/Screen'
 import { Button } from '../../../components/Button/Button'
-import { PasswordInput } from '../../../components/PasswordInput/PasswordInput'
+import { FormPasswordInput } from '../../../components/Form/FormPasswordInput'
+import { FormTextInput } from '../../../components/Form/FormTextInput'
 import { Text } from '../../../components/Text/Text'
-import { TextInput } from '../../../components/TextInput/TextInput'
 import { RootStackParamList } from '../../../routes/Routes'
+import { LoginSchema, loginSchema } from './loginScheema'
 
 type ScreenProps = NativeStackScreenProps<RootStackParamList, 'LoginScreen'>
 
-type LoginFormType = {
-  email: string
-  password: string
-}
-
 export function LoginScreen({ navigation }: ScreenProps) {
-  const { control, handleSubmit } = useForm<LoginFormType>({
+  const { control, handleSubmit } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
     },
+    mode: 'onChange',
   })
 
-  function onSubmit(data: LoginFormType) {
+  function onSubmit(data: LoginSchema) {
     console.log(data)
   }
 
@@ -43,34 +42,20 @@ export function LoginScreen({ navigation }: ScreenProps) {
         Digite seu e-mail e senha para entrar
       </Text>
 
-      <Controller
+      <FormTextInput
         control={control}
         name="email"
-        render={({ field: { onChange, value }, fieldState }) => (
-          <TextInput
-            boxProps={{ mb: 's20' }}
-            label="E-mail"
-            placeholder="Digite seu E-mail"
-            value={value}
-            onChangeText={onChange}
-            // error={fieldState.error?.message}
-          />
-        )}
+        boxProps={{ mb: 's20' }}
+        label="E-mail"
+        placeholder="Digite seu E-mail"
       />
 
-      <Controller
+      <FormPasswordInput
         control={control}
         name="password"
-        render={({ field: { onChange, value }, fieldState }) => (
-          <PasswordInput
-            boxProps={{ mb: 's10' }}
-            label="Senha"
-            placeholder="Digite sua Senha"
-            value={value}
-            onChangeText={onChange}
-            // error={fieldState.error?.message}
-          />
-        )}
+        boxProps={{ mb: 's10' }}
+        label="Senha"
+        placeholder="Digite sua Senha"
       />
 
       <Text
