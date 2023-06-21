@@ -1,7 +1,7 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import React from 'react'
-import { IconProps } from '../components/icon/Icon'
+import { IconProps } from '../components/Icon/Icon'
 import { ForgotPasswordScreen } from '../screens/auth/ForgotPasswordScreen/ForgotPasswordScreen'
 import { LoginScreen } from '../screens/auth/LoginScreen/LoginScreen'
 import { SignUpScreen } from '../screens/auth/SignUpScreen/SignUpScreen'

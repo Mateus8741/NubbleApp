@@ -9,7 +9,7 @@ const SRText = createText<Theme>()
 
 type SRTextProps = ComponentProps<typeof SRText>
 
-interface TextProps extends SRTextProps {
+export interface TextProps extends SRTextProps {
   // eslint-disable-next-line no-use-before-define
   preset?: TextVariants
   bold?: boolean

@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native'
 import { ReactNode } from 'react'
 import { KeyboardAvoidingView, Platform } from 'react-native'
-import { Box, TouchableOpacityBox } from '../components/Box/Box'
-import { Text } from '../components/Text/Text'
-import { Icon } from '../components/icon/Icon'
-import { useAppSafeArea } from '../hooks/useAppSafeArea'
-import { useAppTheme } from '../hooks/useAppTheme'
+import { useAppSafeArea } from '../../hooks/useAppSafeArea'
+import { useAppTheme } from '../../hooks/useAppTheme'
+import { Box, TouchableOpacityBox } from '../Box/Box'
+import { Icon } from '../Icon/Icon'
+import { Text } from '../Text/Text'
 import {
   ScrollViewContainer,
   ViewContainer,
