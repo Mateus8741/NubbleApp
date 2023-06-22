@@ -1,39 +1,37 @@
-import { Box, Icon, Text, TouchableOpacityBox } from '@components'
-import { useAppSafeArea, useAppTheme } from '@hooks'
-import { useNavigation } from '@react-navigation/native'
-import { ReactNode } from 'react'
-import { KeyboardAvoidingView, Platform } from 'react-native'
+import {ReactNode} from 'react';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+
+import {useNavigation} from '@react-navigation/native';
+
+import {Box, Icon, Text, TouchableOpacityBox} from '@components';
+import {useAppSafeArea, useAppTheme} from '@hooks';
+
 import {
   ScrollViewContainer,
   ViewContainer,
-} from './components/ScreenContainers'
+} from './components/ScreenContainers';
 
 interface ScreenProps {
-  children: ReactNode
-  canGoBack?: boolean
-  scrollable?: boolean
+  children: ReactNode;
+  canGoBack?: boolean;
+  scrollable?: boolean;
 }
 
-export function Screen({
-  children,
-  canGoBack,
-  scrollable = false,
-}: ScreenProps) {
-  const { top, bottom } = useAppSafeArea()
+export function Screen({children, canGoBack, scrollable = false}: ScreenProps) {
+  const {top, bottom} = useAppSafeArea();
 
-  const { colors } = useAppTheme()
+  const {colors} = useAppTheme();
 
-  const { goBack } = useNavigation()
+  const {goBack} = useNavigation();
 
-  const Container = scrollable ? ScrollViewContainer : ViewContainer
+  const Container = scrollable ? ScrollViewContainer : ViewContainer;
 
   return (
     <KeyboardAvoidingView
       style={{
         flex: 1,
       }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Container backgroundColor={colors.background}>
         <Box
           px="s24"
@@ -41,8 +39,7 @@ export function Screen({
           style={{
             paddingTop: top,
             paddingBottom: bottom,
-          }}
-        >
+          }}>
           {canGoBack && (
             <TouchableOpacityBox mb="s24" flexDirection="row" onPress={goBack}>
               <Icon name="arrowLeft" color="primary" />
@@ -55,5 +52,5 @@ export function Screen({
         </Box>
       </Container>
     </KeyboardAvoidingView>
-  )
+  );
 }

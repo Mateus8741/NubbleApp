@@ -1,20 +1,19 @@
-/* eslint-disable no-unused-vars */
-import { ComponentProps } from 'react'
-import { TextStyle } from 'react-native'
+import { ComponentProps } from 'react';
+import { TextStyle } from 'react-native';
 
-import { createText } from '@shopify/restyle'
-import { Theme } from '@theme'
+import { createText } from '@shopify/restyle';
 
-const SRText = createText<Theme>()
+import { Theme } from '@theme';
 
-type SRTextProps = ComponentProps<typeof SRText>
+const SRText = createText<Theme>();
+
+type SRTextProps = ComponentProps<typeof SRText>;
 
 export interface TextProps extends SRTextProps {
-  // eslint-disable-next-line no-use-before-define
-  preset?: TextVariants
-  bold?: boolean
-  italic?: boolean
-  semiBold?: boolean
+  preset?: TextVariants;
+  bold?: boolean;
+  italic?: boolean;
+  semiBold?: boolean;
 }
 
 export function Text({
@@ -22,27 +21,25 @@ export function Text({
   preset = 'paragraphMedium',
   ...rest
 }: TextProps) {
-  const style = $fontSizes[preset]
+  const style = $fontSizes[preset];
   const fontFamily = getFontFamily(
     preset,
     rest.bold,
     rest.italic,
     rest.semiBold,
-  )
+  );
 
   return (
     <SRText
       color="backgroundContrast"
       style={[style, rest.style, { fontFamily }]}
-      {...rest}
-    >
+      {...rest}>
       {children}
     </SRText>
-  )
+  );
 }
 
 function getFontFamily(
-  // eslint-disable-next-line no-use-before-define
   preset: TextVariants,
   bold?: boolean,
   italic?: boolean,
@@ -53,19 +50,19 @@ function getFontFamily(
     preset === 'headingMedium' ||
     preset === 'headingSmall'
   ) {
-    return italic ? $fontFamily.boldItalic : $fontFamily.bold
+    return italic ? $fontFamily.boldItalic : $fontFamily.bold;
   }
   switch (true) {
     case bold && italic:
-      return $fontFamily.boldItalic
+      return $fontFamily.boldItalic;
     case bold:
-      return $fontFamily.bold
+      return $fontFamily.bold;
     case italic:
-      return $fontFamily.italic
+      return $fontFamily.italic;
     case semiBold:
-      return $fontFamily.medium
+      return $fontFamily.medium;
     default:
-      return $fontFamily.regular
+      return $fontFamily.regular;
   }
 }
 
@@ -77,7 +74,7 @@ type TextVariants =
   | 'paragraphMedium'
   | 'paragraphSmall'
   | 'paragraphCaption'
-  | 'paragraphCaptionSmall'
+  | 'paragraphCaptionSmall';
 
 export const $fontSizes: Record<TextVariants, TextStyle> = {
   headingLarge: { fontSize: 32, lineHeight: 38.4 },
@@ -90,7 +87,7 @@ export const $fontSizes: Record<TextVariants, TextStyle> = {
 
   paragraphCaption: { fontSize: 12, lineHeight: 16.8 },
   paragraphCaptionSmall: { fontSize: 10, lineHeight: 14 },
-}
+};
 
 export const $fontFamily = {
   black: 'Satoshi-Black',
@@ -103,4 +100,4 @@ export const $fontFamily = {
   medium: 'Satoshi-Medium',
   mediumItalic: 'Satoshi-MediumItalic',
   regular: 'Satoshi-Regular',
-}
+};

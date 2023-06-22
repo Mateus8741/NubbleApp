@@ -1,17 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { useAppTheme } from '@hooks'
-import { ThemeColors } from '@theme'
-import React from 'react'
+import React from 'react';
 import {
   ActivityIndicatorProps,
   ActivityIndicator as RNActivityIndicator,
-} from 'react-native'
+} from 'react-native';
+
+import { useAppTheme } from '@hooks';
+import { ThemeColors } from '@theme';
 
 interface Props extends Omit<ActivityIndicatorProps, 'color'> {
   color: ThemeColors
 }
 export function ActivityIndicator({ color }: Props) {
-  const { colors } = useAppTheme()
+  const { colors } = useAppTheme();
 
-  return <RNActivityIndicator color={colors[color]} />
+  return <RNActivityIndicator color={colors[color]} />;
 }

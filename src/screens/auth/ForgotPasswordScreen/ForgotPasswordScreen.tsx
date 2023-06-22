@@ -1,32 +1,34 @@
-import { Button, FormTextInput, Screen, Text } from '@components'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useResetNavigationSuccess } from '@hooks'
-import { NativeStackScreenProps } from '@react-navigation/native-stack'
-import { RootStackParamList } from '@routes'
-import { useForm } from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useForm} from 'react-hook-form';
+
+import {Button, FormTextInput, Screen, Text} from '@components';
+import {useResetNavigationSuccess} from '@hooks';
+import {RootStackParamList} from '@routes';
+
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
-} from './forgotPasswordScheema'
+} from './forgotPasswordScheema';
 
 type ScreenProps = NativeStackScreenProps<
   RootStackParamList,
   'ForgotPasswordScreen'
->
+>;
 
-export function ForgotPasswordScreen({ navigation }: ScreenProps) {
-  const { reset } = useResetNavigationSuccess()
+export function ForgotPasswordScreen({navigation}: ScreenProps) {
+  const {reset} = useResetNavigationSuccess();
 
-  const { control, handleSubmit } = useForm<ForgotPasswordSchema>({
+  const {control, handleSubmit} = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: '',
     },
     mode: 'onChange',
-  })
+  });
 
   function submitForm(formValues: ForgotPasswordSchema) {
-    console.log(formValues)
+    console.log(formValues);
 
     reset({
       title: 'Redefinição enviada!',
@@ -36,7 +38,7 @@ export function ForgotPasswordScreen({ navigation }: ScreenProps) {
         name: 'messageRound',
         color: 'primary',
       },
-    })
+    });
   }
 
   return (
@@ -52,7 +54,7 @@ export function ForgotPasswordScreen({ navigation }: ScreenProps) {
       <FormTextInput
         control={control}
         name="email"
-        boxProps={{ mb: 's40' }}
+        boxProps={{mb: 's40'}}
         label="E-mail"
         placeholder="Digite seu E-mail"
       />
@@ -63,5 +65,5 @@ export function ForgotPasswordScreen({ navigation }: ScreenProps) {
         onPress={handleSubmit(submitForm)}
       />
     </Screen>
-  )
+  );
 }

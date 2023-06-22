@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react'
-import { ScrollView, View } from 'react-native'
+import React, {ReactNode} from 'react';
+import {ScrollView, View} from 'react-native';
 
 interface ScreenContainersProps {
-  children: ReactNode
-  backgroundColor: string
+  children: ReactNode;
+  backgroundColor: string;
 }
 
 export function ScrollViewContainer({
@@ -16,11 +16,10 @@ export function ScrollViewContainer({
       style={{
         backgroundColor,
         flex: 1,
-      }}
-    >
+      }}>
       {children}
     </ScrollView>
-  )
+  );
 }
 
 export function ViewContainer({
@@ -32,9 +31,8 @@ export function ViewContainer({
       style={{
         flex: 1,
         backgroundColor,
-      }}
-    >
+      }}>
       {children}
     </View>
-  )
+  );
 }

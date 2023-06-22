@@ -1,4 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { ComponentProps } from 'react';
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native';
+
 import {
   BackgroundColorProps,
   BorderProps,
@@ -12,10 +15,9 @@ import {
   layout,
   spacing,
   spacingShorthand,
-} from "@shopify/restyle";
+} from '@shopify/restyle';
+
 import { Theme } from '@theme';
-import { ComponentProps } from "react";
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 export const Box = createBox<Theme>();
 export type BoxProps = ComponentProps<typeof Box>
