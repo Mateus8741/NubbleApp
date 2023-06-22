@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {Icon, TextInput, TextInputProps} from '@components';
+import { Icon, TextInput, TextInputProps } from '@components';
 
 export type PasswordInputProps = Omit<TextInputProps, 'RightComponent'>;
 
-export function PasswordInput({...textInputProps}: PasswordInputProps) {
+export function PasswordInput({ ...textInputProps }: PasswordInputProps) {
   const [isSecureTextEntry, setIsSecureTextEntry] = useState(true);
 
   function toggleSecureTextEntry() {
@@ -13,7 +13,7 @@ export function PasswordInput({...textInputProps}: PasswordInputProps) {
 
   return (
     <TextInput
-      boxProps={{mb: 's10'}}
+      boxProps={{ mb: 's10' }}
       label="E-mail"
       placeholder="Digite sua Senha"
       secureTextEntry={isSecureTextEntry}

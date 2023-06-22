@@ -1,10 +1,10 @@
-import {zodResolver} from '@hookform/resolvers/zod';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useForm} from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useForm } from 'react-hook-form';
 
-import {Button, FormTextInput, Screen, Text} from '@components';
-import {useResetNavigationSuccess} from '@hooks';
-import {RootStackParamList} from '@routes';
+import { Button, FormTextInput, Screen, Text } from '@components';
+import { useResetNavigationSuccess } from '@hooks';
+import { RootStackParamList } from '@routes';
 
 import {
   ForgotPasswordSchema,
@@ -16,10 +16,10 @@ type ScreenProps = NativeStackScreenProps<
   'ForgotPasswordScreen'
 >;
 
-export function ForgotPasswordScreen({navigation}: ScreenProps) {
-  const {reset} = useResetNavigationSuccess();
+export function ForgotPasswordScreen({ navigation }: ScreenProps) {
+  const { reset } = useResetNavigationSuccess();
 
-  const {control, handleSubmit} = useForm<ForgotPasswordSchema>({
+  const { control, handleSubmit } = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: '',
@@ -54,7 +54,7 @@ export function ForgotPasswordScreen({navigation}: ScreenProps) {
       <FormTextInput
         control={control}
         name="email"
-        boxProps={{mb: 's40'}}
+        boxProps={{ mb: 's40' }}
         label="E-mail"
         placeholder="Digite seu E-mail"
       />

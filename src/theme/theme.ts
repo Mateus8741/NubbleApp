@@ -1,4 +1,4 @@
-import {createTheme} from '@shopify/restyle';
+import { createTheme } from '@shopify/restyle';
 
 const palette = {
   greenPrimary: '#074C4E',

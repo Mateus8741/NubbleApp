@@ -1,7 +1,7 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import {IconProps} from '@components';
+import { IconProps } from '@components';
 import {
   ForgotPasswordScreen,
   LoginScreen,
@@ -21,7 +21,8 @@ export type RootStackParamList = {
 };
 
 export function Router() {
-  const {Navigator, Screen} = createNativeStackNavigator<RootStackParamList>();
+  const { Navigator, Screen } =
+    createNativeStackNavigator<RootStackParamList>();
 
   return (
     <NavigationContainer>

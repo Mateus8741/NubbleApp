@@ -1,10 +1,10 @@
-import {ReactNode} from 'react';
-import {KeyboardAvoidingView, Platform} from 'react-native';
+import { ReactNode } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-import {Box, Icon, Text, TouchableOpacityBox} from '@components';
-import {useAppSafeArea, useAppTheme} from '@hooks';
+import { Box, Icon, Text, TouchableOpacityBox } from '@components';
+import { useAppSafeArea, useAppTheme } from '@hooks';
 
 import {
   ScrollViewContainer,
@@ -17,12 +17,16 @@ interface ScreenProps {
   scrollable?: boolean;
 }
 
-export function Screen({children, canGoBack, scrollable = false}: ScreenProps) {
-  const {top, bottom} = useAppSafeArea();
+export function Screen({
+  children,
+  canGoBack,
+  scrollable = false,
+}: ScreenProps) {
+  const { top, bottom } = useAppSafeArea();
 
-  const {colors} = useAppTheme();
+  const { colors } = useAppTheme();
 
-  const {goBack} = useNavigation();
+  const { goBack } = useNavigation();
 
   const Container = scrollable ? ScrollViewContainer : ViewContainer;
 
