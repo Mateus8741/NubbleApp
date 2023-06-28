@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React, { ReactNode } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
