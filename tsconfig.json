@@ -14,7 +14,8 @@
       "@services": ["src/services"],
       "@contexts": ["src/contexts"],
       "@routes": ["src/routes"],
-      "@theme": ["src/theme"]
+      "@theme": ["src/theme"],
+      "@domain": ["src/domain"],
     }
   }
 }

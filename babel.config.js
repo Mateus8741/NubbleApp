@@ -17,6 +17,7 @@ module.exports = {
           '@contexts': './src/contexts',
           '@routes': './src/routes',
           '@theme': './src/theme',
+          '@domain': './src/domain',
         },
       },
     ],
