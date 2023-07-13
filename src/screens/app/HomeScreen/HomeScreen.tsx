@@ -11,6 +11,8 @@ import { Post, postService } from '@domain';
 import { PostItem, Screen } from '@components';
 import { AppTabScreenProps } from '@routes';
 
+import { HomeHeader } from './components/HomeHeader';
+
 export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
   const [postList, setPostList] = useState<Post[]>([]);
   useEffect(() => {
@@ -28,6 +30,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
         keyExtractor={item => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={<HomeHeader />}
       />
     </Screen>
   );
