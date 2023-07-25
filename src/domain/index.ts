@@ -1,4 +1,4 @@
 /* eslint-disable prettier/prettier */
 export * from './Post/postService';
-export * from './Post/types';
+export * from './Post/postTypes';
 
