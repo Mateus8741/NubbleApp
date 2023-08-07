@@ -2,7 +2,7 @@ import { apiAdapter } from '@api';
 import { Page } from '@types';
 
 import { postCommentAdapter } from './postCommentAdapter';
-import { postCommentApi } from './PostCommentApi';
+import { postCommentApi } from './postCommentApi';
 import { PostComment } from './postCommentTypes';
 
 const PER_PAGE = 10;
@@ -22,6 +22,6 @@ async function getList(
   };
 }
 
-export const postService = {
+export const postCommentService = {
   getList,
 };
