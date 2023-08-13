@@ -17,7 +17,7 @@ export function PostCommentItem({ postComment }: Props) {
           {postComment.author.userName}
         </Text>
         <Text preset="paragraphSmall" color="gray1">
-          {postComment.message}
+          {postComment.message} - {postComment.createAtRelative}
         </Text>
       </Box>
     </Box>
