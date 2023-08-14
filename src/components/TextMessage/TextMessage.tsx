@@ -1,16 +1,16 @@
 /* eslint-disable prettier/prettier */
 import React, { useRef } from 'react';
 import {
-    Pressable,
-    TextInput as RNTextInput,
-    TextInputProps as RNTextInputProps,
+  Pressable,
+  TextInput as RNTextInput,
+  TextInputProps as RNTextInputProps,
 } from 'react-native';
 
 import { $TextInputStyle, Box, Text } from '@components';
 import { useAppTheme } from '@hooks';
 
 interface TextInputProps extends RNTextInputProps {
-  onPressSend: () => void;
+  onPressSend: (message: string) => void;
 }
 
 export function TextMessage({
@@ -46,7 +46,7 @@ export function TextMessage({
           placeholderTextColor={colors.gray2}
           {...rnTextInputProps}
         />
-        <Pressable onPress={onPressSend} disabled={sendIsDisabled} >
+        <Pressable onPress={() => onPressSend(value || '')} disabled={sendIsDisabled} >
           <Text color={sendIsDisabled ? 'gray2' : 'primary'} bold >
             Enviar
           </Text>
