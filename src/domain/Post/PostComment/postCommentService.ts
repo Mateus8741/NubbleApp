@@ -34,8 +34,25 @@ async function remove(postCommentId: number): Promise<string> {
   return response.message;
 }
 
+function isAllowToDelete(
+  postComment: PostComment,
+  userId: number,
+  postAuthId: number,
+): boolean {
+  if (postComment.author.id === userId) {
+    return true;
+  }
+
+  if (postAuthId === userId) {
+    return true;
+  }
+
+  return false;
+}
+
 export const postCommentService = {
   getList,
   create,
   remove,
+  isAllowToDelete,
 };
