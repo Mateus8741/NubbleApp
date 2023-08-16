@@ -1,7 +1,13 @@
-import { ToastService } from '@services';
+import { ToastService } from './toastTypes';
+import { useToastServiceZustand, useToastZustand } from './useToastZustand';
 
-import { useToastContext } from './usetToastContext';
+export function useToast(): ToastService['toast'] {
+  return useToastZustand();
+}
 
-export function useToast(): ToastService {
-  return useToastContext();
+export function useToastService(): Pick<
+  ToastService,
+  'showToast' | 'hideToast'
+> {
+  return useToastServiceZustand();
 }
