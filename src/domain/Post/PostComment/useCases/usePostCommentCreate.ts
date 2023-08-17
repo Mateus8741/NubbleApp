@@ -1,4 +1,5 @@
-import { MutationOptions, useMutation } from '@infra';
+import { MutationOptions, QueryKeys } from '@infra';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { postCommentService } from '../postCommentService';
 import { PostComment } from '../postCommentTypes';
@@ -7,18 +8,37 @@ export function usePostCommentCreate(
   postId: number,
   options?: MutationOptions<PostComment>,
 ) {
-  const { mutate, loading, error } = useMutation<
-    { message: string },
-    PostComment
-  >(({ message }) => postCommentService.create(postId, message), options);
+  const QueryClient = useQueryClient();
+
+  const { mutate, isLoading, isError } = useMutation<
+    PostComment,
+    unknown,
+    { message: string }
+  >({
+    mutationFn: variables =>
+      postCommentService.create(postId, variables.message),
+    onSuccess: data => {
+      QueryClient.invalidateQueries([QueryKeys.PostList, postId]);
+
+      if (options?.onSuccess) {
+        options.onSuccess(data);
+      }
+    },
+
+    onError: () => {
+      if (options?.onError) {
+        options.onError(options.errorMessage || 'Erro ao criar comentário');
+      }
+    },
+  });
 
   async function createComment(message: string) {
-    await mutate({ message });
+    mutate({ message });
   }
 
   return {
     createComment,
-    loading,
-    error,
+    isLoading,
+    isError,
   };
 }
