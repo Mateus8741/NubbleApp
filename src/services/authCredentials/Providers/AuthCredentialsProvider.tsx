@@ -1,29 +1,65 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
+import { AuthCredentials, authService } from '@domain';
+
+import { authCredentialsStorage } from '../authCredentialsStorage';
 import { AuthCredentialsService } from '../authCredentialsTypes';
 
 export const AuthCredentialsContext = createContext<AuthCredentialsService>({
   authCredentials: null,
-  isLoading: false,
-  removeCredentials: async () => {},
+  isLoading: true,
   saveCredentials: async () => {},
+  removeCredentials: async () => {},
 });
-
-interface AuthCredentialsProviderProps {
-  children: React.ReactNode;
-}
 
 export function AuthCredentialsProvider({
   children,
-}: AuthCredentialsProviderProps) {
-  const value = {
-    authCredentials: null,
-    isLoading: false,
-    removeCredentials: async () => {},
-    saveCredentials: async () => {},
-  };
+}: React.PropsWithChildren<{}>) {
+  const [authCredentials, setAuthCredentials] =
+    useState<AuthCredentials | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  <AuthCredentialsContext.Provider value={value}>
-    {children}
-  </AuthCredentialsContext.Provider>;
+  React.useEffect(() => {
+    startAuthCredentials();
+  }, []);
+
+  async function startAuthCredentials() {
+    try {
+      const ac = await authCredentialsStorage.get();
+      if (ac) {
+        authService.updateToken(ac.token);
+        setAuthCredentials(ac);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function saveCredentials(ac: AuthCredentials): Promise<void> {
+    authService.updateToken(ac.token);
+
+    authCredentialsStorage.set(ac);
+
+    setAuthCredentials(ac);
+  }
+
+  async function removeCredentials(): Promise<void> {
+    authService.removeToken();
+    authCredentialsStorage.remove();
+    setAuthCredentials(null);
+  }
+
+  return (
+    <AuthCredentialsContext.Provider
+      value={{
+        authCredentials,
+        isLoading,
+        saveCredentials,
+        removeCredentials,
+      }}>
+      {children}
+    </AuthCredentialsContext.Provider>
+  );
 }
