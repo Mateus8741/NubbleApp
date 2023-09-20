@@ -13,15 +13,28 @@ import {
 import { useResetNavigationSuccess } from '@hooks';
 import { AuthScreenProps } from '@routes';
 
+import { useAuthSignUp } from '@domain';
 import { SignUpSchema, signUpSchema } from './signUpScheema';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
+  const {signUp, isLoading} = useAuthSignUp({onSuccess: () => {
+    reset({
+      title: 'Sua conta foi criada com sucesso!',
+      description: 'Agora é só fazer login na nossa plataforma',
+      icon: {
+        name: 'checkRound',
+        color: 'success',
+      },
+    });
+  }});
+
   const { control, handleSubmit } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
-      fullName: '',
+      firstName: '',
+      lastName: '',
       email: '',
       password: '',
     },
@@ -31,15 +44,7 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
   const { reset } = useResetNavigationSuccess();
 
   function submitForm(formValues: SignUpSchema) {
-    console.log(formValues);
-    reset({
-      title: 'Sua conta foi criada com sucesso!',
-      description: 'Agora é só fazer login na nossa plataforma',
-      icon: {
-        name: 'checkRound',
-        color: 'success',
-      },
-    });
+    signUp(formValues);
   }
 
   return (
@@ -58,10 +63,18 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
 
       <FormTextInput
         control={control}
-        name="fullName"
+        name="firstName"
         boxProps={{ mb: 's10' }}
-        label="Nome completo"
-        placeholder="Digite seu nome completo"
+        label="Nome"
+        placeholder="Digite seu nome"
+      />
+      
+      <FormTextInput
+        control={control}
+        name="lastName"
+        boxProps={{ mb: 's10' }}
+        label="Sobrenome"
+        placeholder="Digite seu sobrenome"
       />
 
       <FormTextInput
@@ -80,7 +93,7 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
         placeholder="Digite sua Senha"
       />
 
-      <Button title="Criar uma conta" onPress={handleSubmit(submitForm)} />
+      <Button title="Criar uma conta" loading={isLoading} onPress={handleSubmit(submitForm)} />
     </Screen>
   );
 }
