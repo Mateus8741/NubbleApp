@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { useAuthIsUsernameAvailable, useAuthSignUp } from '@domain';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
 import {
+  ActivityIndicator,
   Button,
   FormPasswordInput,
   FormTextInput,
@@ -13,10 +15,8 @@ import {
 import { useResetNavigationSuccess } from '@hooks';
 import { AuthScreenProps } from '@routes';
 
-import { useAuthSignUp } from '@domain';
 import { SignUpSchema, signUpSchema } from './signUpScheema';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
   const {signUp, isLoading} = useAuthSignUp({onSuccess: () => {
     reset({
@@ -29,7 +29,7 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
     });
   }});
 
-  const { control, handleSubmit } = useForm<SignUpSchema>({
+  const { control, handleSubmit, formState, watch } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       username: '',
@@ -47,6 +47,9 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
     signUp(formValues);
   }
 
+  const username = watch('username');
+  const usernameQuery = useAuthIsUsernameAvailable({username});
+
   return (
     <Screen canGoBack scrollable>
       <Text preset="headingLarge" mb="s32">
@@ -59,6 +62,11 @@ export function SignUpScreen({ navigation }: AuthScreenProps<'SignUpScreen'>) {
         boxProps={{ mb: 's10' }}
         label="Seu username"
         placeholder="@"
+        RightComponent={
+          usernameQuery.isFetching ? (
+            <ActivityIndicator size="small" />
+          ) : undefined
+        }
       />
 
       <FormTextInput
