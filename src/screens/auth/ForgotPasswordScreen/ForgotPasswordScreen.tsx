@@ -5,18 +5,35 @@ import { useForm } from 'react-hook-form';
 
 import { Button, FormTextInput, Screen, Text } from '@components';
 import { useResetNavigationSuccess } from '@hooks';
-import { AuthScreenProps } from '@routes';
+import { AuthScreenProps, AuthStackParamList } from '@routes';
 
+import { useAuthRequestNewPassword } from '@domain';
+import { useToastService } from '@services';
 import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from './forgotPasswordScheema';
+
+const resetParam: AuthStackParamList['SuccessScreen'] = {
+  title: `Enviamos as instruções ${'\n'}para seu e-mail`,
+  description: 'Clique no link enviado no seu e-mail para recuperar sua senha',
+  icon: {
+    name: 'messageRound',
+    color: 'primary',
+  },
+};
 
 export function ForgotPasswordScreen({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   navigation,
 }: AuthScreenProps<'ForgotPasswordScreen'>) {
   const { reset } = useResetNavigationSuccess();
+
+  const {showToast} = useToastService();
+  const {requestNewPassword, isLoading} = useAuthRequestNewPassword({
+    onSuccess: () => reset(resetParam),
+    onError: message => showToast({message, type: 'error'}),
+  });
 
   const { control, handleSubmit } = useForm<ForgotPasswordSchema>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -27,7 +44,7 @@ export function ForgotPasswordScreen({
   });
 
   function submitForm(formValues: ForgotPasswordSchema) {
-    console.log(formValues);
+    requestNewPassword(formValues.email);
 
     reset({
       title: 'Redefinição enviada!',
@@ -61,6 +78,7 @@ export function ForgotPasswordScreen({
       <Button
         title="Recuperar senha"
         preset="primary"
+        loading={isLoading}
         onPress={handleSubmit(submitForm)}
       />
     </Screen>
